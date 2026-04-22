@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+
+@import "tailwindcss";
+@plugin "daisyui" {
+   themes: light --default;
+ }
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: blue;
+  --color-secondary: teal;
+}
+
+body{
+ font-family: "Urbanist", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+ .hoverEffect{
+    @apply transition-all duration-300 ease-in-out
+  }
+
+  .carousel .slide {
+  background: transparent !important;
+}
+
+.carousel .control-dots {
+  bottom: 10px;
+}
+
+.carousel .slider-wrapper,
+.carousel .slider {
+  height: auto !important;
+}
+
+.carousel .slide > div {
+  height: auto !important;
+}
+
+
+
