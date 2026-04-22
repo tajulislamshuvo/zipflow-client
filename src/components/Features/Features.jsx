@@ -26,7 +26,7 @@ const features = [
 
 const Features = () => {
   return (
-    <div className=" py-16 px-6 font-sans">
+    <div className="mx-4 py-16 px-2 font-sans border-b border-dashed border-[#03373D]">
       <div className="max-w-5xl mx-auto space-y-8">
         {features.map((feature, index) => {
           const Icon = feature.icon;

@@ -1,4 +1,5 @@
 import React from 'react';
+// import bannerImage1 from "../../assets/banner/Gemini_banner_image_1.png"
 import bannerImage1 from "../../assets/banner/Gemini_banner_image_1.png"
 import bannerImage3 from "../../assets/banner/Gemini_banner_image_3.png"
 import bannerImage4 from "../../assets/banner/banner-image-4.png"

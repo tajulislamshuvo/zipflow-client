@@ -8,11 +8,10 @@ const Reviews = ({reviewPromise}) => {
 
   const reviews = use(reviewPromise);
 
-  console.log(reviews)
   return (
     <div className='my-7 space-y-5 md:px-5'>
-      <h2 className='text-[#03373D] text-2xl md:text-3xl lg:text-4xl font-extrabold text-center max-w-3xl mx-auto'>What our customers are sayings</h2>
-      <p className='text-[#606060] max-w-208 p-2 text-center mx-auto'>Enhance posture, mobility, and well-being effortlessly with Posture Pro. Achieve proper alignment, reduce pain, and strengthen your body with ease!</p>
+      <h2 className='text-[#03373D] text-3xl lg:text-4xl font-extrabold text-center max-w-3xl mx-auto'>What our customers are sayings</h2>
+      <p className='text-[#606060] max-w-208 py-2 px-5 md:px-0 text-center mx-auto text-sm md:text-[16px]'>Enhance posture, mobility, and well-being effortlessly with Posture Pro. Achieve proper alignment, reduce pain, and strengthen your body with ease!</p>
       <Swiper
       
       

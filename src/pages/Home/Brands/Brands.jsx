@@ -17,8 +17,8 @@ const brandLogos = [amazon, amazon_vector, casio, moonstar, randstad, star, star
 
 const Brands = () => {
   return (
-    <div className='py-15 mx-4 space-y-15 p-6 border-b border-dashed border-[#03373D]'>
-      <h2 className='text-[#03373D] text-2xl md:text-3xl lg:text-4xl font-extrabold text-center max-w-3xl mx-auto'>We've helped thousands of sales teams</h2>
+    <div className='py-15 mx-4 space-y-15 p-5 border-b border-dashed border-[#03373D]'>
+      <h2 className='text-[#03373D] text-3xl lg:text-4xl font-extrabold text-center max-w-3xl mx-auto'>We've helped thousands of sales teams</h2>
       <Swiper
         slidesPerView={4}
         spaceBetween={30}
