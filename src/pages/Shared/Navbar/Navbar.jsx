@@ -1,8 +1,22 @@
 import React from 'react'
 import Logo from '../../../components/Logo/Logo'
-import { NavLink } from 'react-router'
+import { Link, NavLink } from 'react-router'
+import useAuth from '../../../hooks/useAuth'
 
 export default function Navbar() {
+
+  const {user, logOut} = useAuth();
+
+  const handleLogOut = () =>{
+    logOut()
+    .then(result=>{
+      console.log(result)
+    }).catch(error => {
+      console.log(error.message);
+      
+    })
+  }
+
   const links = <>
   <li><NavLink to='/'>Home</NavLink></li>
   <li><NavLink to='services'>Services</NavLink></li>
@@ -22,6 +36,11 @@ export default function Navbar() {
         tabIndex="-1"
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
        {links}
+           {
+      user ? <a onClick={handleLogOut} className="btn">Log Out</a> : <Link to="/login" className="btn">Login</Link>
+    }
+    <Link className='btn btn-primary text-black mt-2' to="/be-a-rider">Be a rider</Link>
+
       </ul>
     </div>
       <Logo></Logo>
@@ -31,8 +50,11 @@ export default function Navbar() {
     {links}
     </ul>
   </div>
-  <div className="navbar-end">
-    <a className="btn">Button</a>
+  <div className="navbar-end hidden lg:flex">
+    {
+      user ? <a onClick={handleLogOut} className="btn">Log Out</a> : <Link to="/login" className="btn">Login</Link>
+    }
+    <Link className='btn btn-primary text-black ml-1.5' to="/be-a-rider">Be a rider</Link>
   </div>
 </div>
   )

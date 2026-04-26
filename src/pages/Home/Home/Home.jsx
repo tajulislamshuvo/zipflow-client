@@ -5,6 +5,7 @@ import Features from '../../../components/Features/Features';
 import Brands from '../Brands/Brands';
 import Reviews from '../Reviews/Reviews';
 import SatisfactionCard from '../SatisfactionCard/SatisfactionCard';
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 
 const reviewsPromise = fetch('/reviews.json').then(res => res.json());
 

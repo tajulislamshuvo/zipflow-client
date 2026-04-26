@@ -1,6 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
+import { Link } from 'react-router';
+import SocialLogin from '../SocialLogin/SocialLogin';
+import axios from 'axios';
 
 const Register = () => {
    const {
@@ -9,12 +12,42 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const {registerUser} = useAuth();
+  const {registerUser,updateUserProfile} = useAuth();
 
   const handleRegister = (data) =>{
-    console.log('after register',data);
+    console.log('after register',data.photo[0]);
+    const profileImage = data.photo[0];
     registerUser(data.email, data.password)
     .then(result =>{
+      // store the image and get the photo url
+      const formData = new FormData();
+      formData.append('image', profileImage);
+
+        const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`
+
+      axios.post(image_API_URL, formData)
+      .then(res =>{
+        const photoUrl = res.data.data.url;
+
+
+        // update user profile
+        const userProfile = {
+          displayName: data.name,
+          photoURL: photoUrl
+        }
+
+        updateUserProfile(userProfile)
+        .then(() =>{
+          console.log("user profile updated done.",res)
+        })
+
+      }).catch(error => console.log(error.message))
+      
+
+
+      
+
+
       console.log(result.user)
     }).catch(error => {
       console.log(error)
@@ -24,10 +57,24 @@ const Register = () => {
     <div className="flex justify-center items-center">
   <div className="card w-full max-w-sm shadow-2xl bg-base-100">
     <div className="card-body">
-      <h2 className="text-2xl font-bold text-center">Register</h2>
+      <h2 className="text-3xl font-bold text-center">Create an Account</h2>
+      <p className='font-semibold text-center mb-2'>Register with ZipFlow</p>
 
       <form onSubmit={handleSubmit(handleRegister)}>
         <fieldset className="fieldset w-full">
+        {/* name field */}
+        <label className="label">Name</label>
+          <input type="text" {...register('name', {required:true})} className="input input-bordered w-full" placeholder="Your name" />
+          {errors.name?.type === "required" && (
+            <p role="alert" className='text-red-500 font-bold'>Name is required</p>
+            )}
+
+        {/* image upload field */}
+        <label className="label">Image</label>
+          <input type="file" {...register('photo')} className="file-input input-bordered w-full" placeholder="Upload your image" />
+         
+
+          {/* email field */}
           <label className="label">Email</label>
           <input type="email" {...register('email', {required:true})} className="input input-bordered w-full" placeholder="Email" />
           {errors.email?.type === "required" && (
@@ -43,13 +90,15 @@ const Register = () => {
             <p role="alert" className='text-red-500 font-bold'>Password must be 6-15 characters, include uppercase, lowercase, and a number</p>
             )}
 
-          <div className="mt-2 text-right">
+           <div className="mt-1 text-left">
             <a className="link link-hover text-sm">Forgot password?</a>
           </div>
 
           <button className="btn btn-neutral mt-4 w-full">Register</button>
         </fieldset>
+        <p className='mt-1'>Allready Have An Account  <Link className="underline text-red-400" to="/login">Login</Link></p>
       </form>
+      <SocialLogin></SocialLogin>
     </div>
   </div>
 </div>

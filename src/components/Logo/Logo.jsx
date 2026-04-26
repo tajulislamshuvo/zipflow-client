@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 const Logo = () => {
   return (
-    <Link>
+    <Link className='inline-block'>
     <div className='flex items-end'>
       <img src={logo} alt="logo" className=' w-8'/>
       <h3 className='text-2xl font-extrabold -ms-2 tracking-wide'>zipFlow</h3>
