@@ -20,9 +20,12 @@ export default function Navbar() {
   const links = <>
   <li><NavLink to='/'>Home</NavLink></li>
   <li><NavLink to='services'>Services</NavLink></li>
-  <li><NavLink to="/coverage">Coverage</NavLink></li>
   <li><NavLink to='/about'>About Us</NavLink></li>
   <li><NavLink to='/pricing'>Pricing</NavLink></li>
+  <li><NavLink to='/send-parcel'>Send Parcel</NavLink></li>
+  <li><NavLink to="/coverage">Coverage</NavLink></li>
+
+
   
   </>
   return (
@@ -39,7 +42,7 @@ export default function Navbar() {
            {
       user ? <a onClick={handleLogOut} className="btn">Log Out</a> : <Link to="/login" className="btn">Login</Link>
     }
-    <Link className='btn btn-primary text-black mt-2' to="/be-a-rider">Be a rider</Link>
+    <Link className='btn btn-primary text-black mt-2' to="/rider">Be a rider</Link>
 
       </ul>
     </div>
@@ -54,7 +57,7 @@ export default function Navbar() {
     {
       user ? <a onClick={handleLogOut} className="btn">Log Out</a> : <Link to="/login" className="btn">Login</Link>
     }
-    <Link className='btn btn-primary text-black ml-1.5' to="/be-a-rider">Be a rider</Link>
+    <Link className='btn btn-primary text-black ml-1.5' to="/rider">Be a rider</Link>
   </div>
 </div>
   )

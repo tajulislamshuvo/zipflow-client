@@ -1,26 +1,42 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import { toast } from 'react-toastify';
 
 const Login = () => {
+  const location= useLocation()
+  const navigate = useNavigate()
      const {
       register,
       handleSubmit,
+      watch,
       formState: { errors },
     } = useForm();
   
-    const {signInUser} = useAuth();
+    const {signInUser,sendPassResetEmailFunc, setLoading} = useAuth();
 
     const handleSignIn = (data) =>{
       console.log(data)
       signInUser(data.email, data.password)
       .then(result => {
-        console.log(result.user)
+        console.log(result.user);
+        navigate(location?.state || '/')
       }).catch(error =>{
         console.log(error)
       })
+    }
+
+    const handleForgetPassword = () =>{
+      const email = watch("email");
+      console.log(email);
+      sendPassResetEmailFunc(email)
+      .then(res =>{
+        setLoading(false);
+        console.log(res)
+        toast.success('Check your email to reset password')
+      }).catch((error) => toast.error(error.message))
     }
 
   return (
@@ -49,12 +65,12 @@ const Login = () => {
 
 
           <div className="mt-1 text-left">
-            <a className="link link-hover text-sm">Forgot password?</a>
+            <button type='button' onClick={handleForgetPassword} className="link link-hover text-sm">Forgot password?</button>
           </div>
 
           <button className="btn btn-neutral mt-4 w-full">Login</button>
         </fieldset>
-        <p className='mt-1'>New to zipFlow? <Link className="underline text-red-400" to="/register">Register</Link></p>
+        <p className='mt-1'>New to zipFlow? <Link className="underline text-red-400" to="/register" state={location?.state}>Register</Link></p>
       </form>
       <SocialLogin></SocialLogin>
     </div>

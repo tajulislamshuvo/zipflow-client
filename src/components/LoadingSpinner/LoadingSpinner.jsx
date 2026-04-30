@@ -20,6 +20,7 @@ const LoadingSpinner = () => {
 
     </Bars>
 
+
     </div>
   );
 };

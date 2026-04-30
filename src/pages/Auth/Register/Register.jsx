@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import axios from 'axios';
+import { FaEye } from "react-icons/fa";
+import { IoEyeOff } from "react-icons/io5";
 
 const Register = () => {
+  const [show, setShow] = useState(false);
    const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const {registerUser,updateUserProfile} = useAuth();
 
@@ -39,15 +44,11 @@ const Register = () => {
         updateUserProfile(userProfile)
         .then(() =>{
           console.log("user profile updated done.",res)
+          navigate(location?.state || "/")
         })
 
       }).catch(error => console.log(error.message))
       
-
-
-      
-
-
       console.log(result.user)
     }).catch(error => {
       console.log(error)
@@ -81,14 +82,24 @@ const Register = () => {
             <p role="alert" className='text-red-500 font-bold'>Email is required</p>
             )}
 
+
+          <div className="relative">
+
           <label className="label mt-2">Password</label>
-          <input type="password" {...register('password', {required:true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,15}$/ })} className="input input-bordered w-full" placeholder="Password" />
+
+          <input type={show ? 'text' : 'password'} {...register('password', {required:true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,15}$/ })} className="input input-bordered w-full" placeholder="Password" />
+
+          <span onClick={() => setShow(!show)} className='absolute right-2 top-10 cursor-pointer z-50'>
+              {show ?<IoEyeOff></IoEyeOff> :<FaEye></FaEye> }
+          </span>
           {errors.password?.type === "required" && (
             <p role="alert" className='text-red-500 font-bold'>Password is required</p>
             )}
           {errors.password?.type === "pattern" && (
             <p role="alert" className='text-red-500 font-bold'>Password must be 6-15 characters, include uppercase, lowercase, and a number</p>
             )}
+            </div>
+          
 
            <div className="mt-1 text-left">
             <a className="link link-hover text-sm">Forgot password?</a>
@@ -96,7 +107,7 @@ const Register = () => {
 
           <button className="btn btn-neutral mt-4 w-full">Register</button>
         </fieldset>
-        <p className='mt-1'>Allready Have An Account  <Link className="underline text-red-400" to="/login">Login</Link></p>
+        <p className='mt-1'>Allready Have An Account  <Link className="underline text-red-400" to="/login" state={location?.state}>Login</Link></p>
       </form>
       <SocialLogin></SocialLogin>
     </div>

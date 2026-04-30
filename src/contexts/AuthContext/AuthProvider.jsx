@@ -56,6 +56,7 @@ const AuthProvider = ({children}) => {
     sendPassResetEmailFunc,
     signInGoogle ,
     user,
+    setLoading,
     loading,
     logOut,
     updateUserProfile

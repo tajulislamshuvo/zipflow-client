@@ -5,6 +5,7 @@ import bannerImage3 from "../../assets/banner/Gemini_banner_image_3.png"
 import bannerImage4 from "../../assets/banner/banner-image-4.png"
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Link } from 'react-router';
 
 const Banner = () => {
   return (
@@ -38,9 +39,9 @@ const Banner = () => {
         Track your parcel
       </button>
 
-      <button className="bg-white text-black/80 px-6 py-3 border border-gray-300 rounded-full font-bold hover:bg-gray-100 transition">
+      <Link to='/rider' className="bg-white text-black/80 px-6 py-3 border border-gray-300 rounded-full font-bold hover:bg-gray-100 transition">
         Be A Rider
-      </button>
+      </Link>
     </div>
 
   </div>
@@ -74,9 +75,9 @@ const Banner = () => {
         Track your parcel
       </button>
 
-      <button className="bg-white text-black/80 px-6 py-3 border border-gray-300 rounded-full font-bold hover:bg-gray-100 transition">
+      <Link to='/rider' className="bg-white text-black/80 px-6 py-3 border border-gray-300 rounded-full font-bold hover:bg-gray-100 transition">
         Be A Rider
-      </button>
+      </Link>
     </div>
 
   </div>
@@ -110,9 +111,9 @@ const Banner = () => {
         Track your parcel
       </button>
 
-      <button className="bg-white text-black/80 px-6 py-3 border border-gray-300 rounded-full font-bold hover:bg-gray-100 transition">
+      <Link to='/rider' className="bg-white text-black/80 px-6 py-3 border border-gray-300 rounded-full font-bold hover:bg-gray-100 transition">
         Be A Rider
-      </button>
+      </Link>
     </div>
 
   </div>
