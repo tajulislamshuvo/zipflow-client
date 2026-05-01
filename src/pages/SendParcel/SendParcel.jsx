@@ -2,9 +2,14 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
 
 const SendParcel = () => {
   const { register, handleSubmit, watch } = useForm();
+
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
 
   const serviceCenteres = useLoaderData();
 
@@ -56,12 +61,17 @@ const SendParcel = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "I agree",
     }).then((result) => {
-      if (result.isConfirmed)
-        Swal.fire({
-          title: "Confirmed",
-          text: "Your ",
-          icon: "success",
+      if (result.isConfirmed) {
+        // save the percel info to the database
+        axiosSecure.post("/parcels", data).then((res) => {
+          console.log("after saving parcel", res.data);
+          Swal.fire({
+            title: "Success",
+            text: "Your parcel is under proceed",
+            icon: "success",
+          });
         });
+      }
     });
   };
 
@@ -138,6 +148,7 @@ const SendParcel = () => {
                       type="text"
                       {...register("senderName")}
                       className="input w-full"
+                      defaultValue={user?.displayName}
                       placeholder="Sender Name"
                     ></input>
                   </fieldset>
@@ -149,6 +160,7 @@ const SendParcel = () => {
                       type="email"
                       {...register("senderEmail")}
                       className="input w-full"
+                      defaultValue={user?.email}
                       placeholder="Sender Email"
                     ></input>
                   </fieldset>
