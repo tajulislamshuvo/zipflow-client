@@ -10,11 +10,16 @@ import PrivateRoute from "./PrivateRoute";
 import SendParcel from "../pages/SendParcel/SendParcel";
 import DashboardLayout from "../layouts/DashboardLayout";
 import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
+import Payment from "../pages/Dashboard/Payment/Payment";
+import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
+import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
+import PaymentCancel from "../pages/Dashboard/Payment/PaymentCancel";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout></RootLayout>,
+    hydrateFallbackElement: <LoadingSpinner></LoadingSpinner>,
     children: [
       {
         index: true,
@@ -69,6 +74,18 @@ export const router = createBrowserRouter([
       {
         path: "my-parcels",
         Component: MyParcels,
+      },
+      {
+        path: "payment/:parcelId",
+        Component: Payment,
+      },
+      {
+        path: "payment-success",
+        Component: PaymentSuccess,
+      },
+      {
+        path: "payment-cancelled",
+        Component: PaymentCancel,
       },
     ],
   },

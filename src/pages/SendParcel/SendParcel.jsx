@@ -1,13 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 
 const SendParcel = () => {
   const { register, handleSubmit, watch } = useForm();
-
+  const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
@@ -51,6 +51,7 @@ const SendParcel = () => {
     }
 
     console.log("cost", cost);
+    data.cost = cost;
 
     Swal.fire({
       title: "Agree with the cost?",
@@ -70,6 +71,7 @@ const SendParcel = () => {
             text: "Your parcel is under proceed",
             icon: "success",
           });
+          navigate("/dashboard/my-parcels");
         });
       }
     });
