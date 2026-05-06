@@ -8,7 +8,7 @@ import { Link } from "react-router";
 
 const MyParcels = () => {
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const {
     isPending,
     data: parcels = [],
@@ -48,7 +48,21 @@ const MyParcels = () => {
     });
   };
 
-  if (isPending) {
+  const handlePayment = async (parcel) => {
+    const paymentInfo = {
+      parcelId: parcel._id,
+      cost: parcel.cost,
+      senderEmail: parcel.senderEmail,
+      parcelName: parcel.parcelName,
+    };
+    const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
+    console.log(res.data);
+
+    // window.location.href = res.data.url;
+    window.location.assign(res.data.url);
+  };
+
+  if (isPending || loading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
   return (
@@ -75,14 +89,17 @@ const MyParcels = () => {
                 <td>{parcel.cost}</td>
                 <td>
                   {parcel.paymentStatus === "paid" ? (
-                    <span className="text-green-400 font-bold">Paid</span>
+                    <span className="text-green-400 font-bold px-2 py-1">
+                      Paid
+                    </span>
                   ) : (
-                    <Link
-                      to={`/dashboard/payment/${parcel._id}`}
+                    <button
+                      onClick={() => handlePayment(parcel)}
+                      // to={`/dashboard/payment/${parcel._id}`}
                       className="bg-[#caeb66] hover:bg-primary/85 cursor-pointer hover:text-black/80 text-xs transition text-black/70 font-bold px-3 py-1 rounded-lg  border border-green-200"
                     >
                       Pay
-                    </Link>
+                    </button>
                   )}
                 </td>
                 <td>{parcel.deliveryStatus}</td>

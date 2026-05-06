@@ -60,7 +60,7 @@ const SendParcel = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "I agree",
+      confirmButtonText: "Confirm and continue payment",
     }).then((result) => {
       if (result.isConfirmed) {
         // save the percel info to the database
