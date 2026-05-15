@@ -14,6 +14,9 @@ import Payment from "../pages/Dashboard/Payment/Payment";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancel from "../pages/Dashboard/Payment/PaymentCancel";
+import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
+import RiderRequest from "../pages/Dashboard/RiderRequest/RiderRequest";
+import UsersManagement from "../pages/Dashboard/UsersManagement/UsersManagement";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +35,7 @@ export const router = createBrowserRouter([
             <Rider></Rider>
           </PrivateRoute>
         ),
+        loader: () => fetch("/services.json").then((res) => res.json()),
       },
       {
         path: "send-parcel",
@@ -78,6 +82,18 @@ export const router = createBrowserRouter([
       {
         path: "payment/:parcelId",
         Component: Payment,
+      },
+      {
+        path: "payment-history",
+        Component: PaymentHistory,
+      },
+      {
+        path: "rider-request",
+        Component: RiderRequest,
+      },
+      {
+        path: "users-management",
+        Component: UsersManagement,
       },
       {
         path: "payment-success",

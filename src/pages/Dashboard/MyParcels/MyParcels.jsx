@@ -96,7 +96,7 @@ const MyParcels = () => {
                     <button
                       onClick={() => handlePayment(parcel)}
                       // to={`/dashboard/payment/${parcel._id}`}
-                      className="bg-[#caeb66] hover:bg-primary/85 cursor-pointer hover:text-black/80 text-xs transition text-black/70 font-bold px-3 py-1 rounded-lg  border border-green-200"
+                      className="bg-[#caeb66] hover:bg-primary/85 cursor-pointer hover:text-black/80 text-xs transition text-black/70 font-extrabold px-4 py-2 rounded-lg  border border-green-200"
                     >
                       Pay
                     </button>
@@ -104,15 +104,15 @@ const MyParcels = () => {
                 </td>
                 <td>{parcel.deliveryStatus}</td>
                 <td>
-                  <button className="bg-[#caeb66] hover:bg-primary/85 cursor-pointer hover:text-black/80 text-xs transition text-black/70 font-bold px-3 py-1 rounded-lg">
+                  <button className=" btn-outline border border-[#caeb66] hover:bg-primary/35 cursor-pointer hover:text-black/80 text-xs transition text-black/70 font-bold px-3 py-1 rounded-lg">
                     View
                   </button>
-                  <button className="bg-[#caeb66] hover:bg-primary/85 cursor-pointer transition text-black/70 text-xs hover:text-black/80  font-bold px-3 py-1 rounded-lg mx-2">
+                  <button className="btn-outline border border-[#caeb66] hover:bg-primary/35 cursor-pointer hover:text-black/80 text-xs transition text-black/70 font-bold px-3 py-1 rounded-lg mx-2">
                     Edit
                   </button>
                   <button
                     onClick={() => handleParcelDelete(parcel._id)}
-                    className="bg-[#caeb66] hover:bg-primary/85 cursor-pointer transition text-black/70 text-xs hover:text-black/80  font-bold px-3 py-1 rounded-lg"
+                    className="btn-outline border border-[#caeb66] hover:bg-primary/35 cursor-pointer hover:text-black/80 text-xs transition text-black/70 font-bold px-3 py-1 rounded-lg"
                   >
                     Delete
                   </button>
