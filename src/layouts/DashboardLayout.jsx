@@ -3,8 +3,23 @@ import { Link, NavLink, Outlet } from "react-router";
 import Logo from "../components/Logo/Logo";
 import { TfiMenu } from "react-icons/tfi";
 import { FaTasks, FaHome, FaUsers } from "react-icons/fa";
-import { MdOutlinePayment, MdDirectionsBike } from "react-icons/md";
+import { RiEBikeLine } from "react-icons/ri";
+import {
+  MdOutlinePayment,
+  MdDirectionsBike,
+  MdOutlineDirectionsBike,
+} from "react-icons/md";
+import useRole from "../hooks/useRole";
+import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
+import useAuth from "../hooks/useAuth";
 const DashboardLayout = () => {
+  const { role, isPending } = useRole();
+  const { user, loading } = useAuth();
+  // console.log(role.role);
+
+  if (isPending || loading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
   return (
     <div className="drawer lg:drawer-open bg-gray-50 min-h-screen">
       <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
@@ -29,6 +44,7 @@ const DashboardLayout = () => {
           </div>
 
           {/* RIGHT */}
+          {user.displayName}
         </div>
 
         {/* PAGE */}
@@ -103,39 +119,59 @@ const DashboardLayout = () => {
               </NavLink>
             </li>
 
-            {/* approve Rider request  */}
-            <li>
-              <NavLink
-                to="/dashboard/rider-request"
-                className={({ isActive }) =>
-                  `flex items-center gap-3 px-4 py-2 rounded-lg transition ${
-                    isActive
-                      ? "bg-[#caeb66] text-black font-medium"
-                      : "text-gray-600 hover:bg-gray-100"
-                  }`
-                }
-              >
-                <MdDirectionsBike size={18} />
-                Rider request
-              </NavLink>
-            </li>
+            {role === "admin" && (
+              <>
+                {/* approve Rider request  */}
+                <li>
+                  <NavLink
+                    to="/dashboard/rider-request"
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-4 py-2 rounded-lg transition ${
+                        isActive
+                          ? "bg-[#caeb66] text-black font-medium"
+                          : "text-gray-600 hover:bg-gray-100"
+                      }`
+                    }
+                  >
+                    <MdDirectionsBike size={18} />
+                    Rider request
+                  </NavLink>
+                </li>
 
-            {/* user management */}
-            <li>
-              <NavLink
-                to="/dashboard/users-management"
-                className={({ isActive }) =>
-                  `flex items-center gap-3 px-4 py-2 rounded-lg transition ${
-                    isActive
-                      ? "bg-[#caeb66] text-black font-medium"
-                      : "text-gray-600 hover:bg-gray-100"
-                  }`
-                }
-              >
-                <FaUsers size={18} />
-                Users management
-              </NavLink>
-            </li>
+                {/* assign riders */}
+                <li>
+                  <NavLink
+                    to="/dashboard/assign-riders"
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-4 py-2 rounded-lg transition ${
+                        isActive
+                          ? "bg-[#caeb66] text-black font-medium"
+                          : "text-gray-600 hover:bg-gray-100"
+                      }`
+                    }
+                  >
+                    <RiEBikeLine size={18} />
+                    Assign riders
+                  </NavLink>
+                </li>
+                {/* user management */}
+                <li>
+                  <NavLink
+                    to="/dashboard/users-management"
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-4 py-2 rounded-lg transition ${
+                        isActive
+                          ? "bg-[#caeb66] text-black font-medium"
+                          : "text-gray-600 hover:bg-gray-100"
+                      }`
+                    }
+                  >
+                    <FaUsers size={18} />
+                    Users management
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
 
           {/* FOOTER */}

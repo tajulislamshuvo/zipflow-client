@@ -2,6 +2,8 @@ import React from "react";
 import Logo from "../../../components/Logo/Logo";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../../hooks/useAuth";
+import userImg from "/image.png";
+import { IoLogOut } from "react-icons/io5";
 
 export default function Navbar() {
   const { user, logOut } = useAuth();
@@ -94,17 +96,39 @@ export default function Navbar() {
       </div>
       <div className="navbar-end hidden lg:flex">
         {user ? (
-          <a onClick={handleLogOut} className="btn">
-            Log Out
-          </a>
+          <div className="dropdown dropdown-end z-50 ">
+            <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 border-2 border-blue-300 rounded-full">
+                <img src={user.photoURL || userImg} alt="user" />
+              </div>
+            </div>
+
+            <ul className="menu menu-sm dropdown-content bg-[#0f1f3d] text-white rounded-box mt-3 w-52 p-2 shadow space-y-2">
+              <li className="font-bold">{user.displayName}</li>
+              <li className="text-xs">{user.email}</li>
+              <li className="mt-2 hover:bg-[#09327e88] transition hover: rounded-md">
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
+              <li>
+                <button
+                  onClick={handleLogOut}
+                  className="btn btn-primary mt-2 text-black font-bold"
+                >
+                  <IoLogOut /> Logout
+                </button>
+              </li>
+            </ul>
+          </div>
         ) : (
-          <Link to="/login" className="btn">
-            Login
-          </Link>
+          <>
+            <Link to="/login" className="btn">
+              Login
+            </Link>
+            <Link className="btn btn-primary text-black ml-1.5" to="/rider">
+              Be a rider
+            </Link>
+          </>
         )}
-        <Link className="btn btn-primary text-black ml-1.5" to="/rider">
-          Be a rider
-        </Link>
       </div>
     </div>
   );

@@ -1,62 +1,134 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const UsersManagement = () => {
   const axiosSecure = useAxiosSecure();
+  const [searchText, setSearchText] = useState("");
   const { loading } = useAuth();
   const {
     data: users = [],
-    isPending,
+
     refetch,
   } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", searchText],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get(`/users?searchUser=${searchText}`);
       return res.data;
     },
   });
 
   const handleMakeAdmin = (user) => {
     const roleInfo = { role: "admin" };
-    axiosSecure.patch(`/users/${user?._id}`, roleInfo).then((res) => {
-      if (res.data.modifiedCount) {
-        refetch();
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: `${user?.displayName} marked as admin`,
-          showConfirmButton: false,
-          timer: 2000,
-        });
-      }
-    });
+    Swal.fire({
+      title: "Are you sure?",
+
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, make admin",
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          axiosSecure
+            .patch(`/users/${user?._id}/role`, roleInfo)
+            .then((res) => {
+              if (res.data.modifiedCount) {
+                refetch();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: `${user?.displayName} marked as admin`,
+                  showConfirmButton: false,
+                  timer: 2000,
+                });
+              }
+            });
+        }
+      })
+      .catch((err) => toast.error(err.message));
   };
 
   const handleMakeUser = (user) => {
     const roleInfo = { role: "user" };
-    axiosSecure.patch(`/users/${user?._id}`, roleInfo).then((res) => {
-      if (res.data.modifiedCount) {
-        refetch();
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: `${user?.displayName} marked as user`,
-          showConfirmButton: false,
-          timer: 2000,
+    Swal.fire({
+      title: "Are you sure?",
+
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, make user",
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          axiosSecure
+            .patch(`/users/${user?._id}/role`, roleInfo)
+            .then((res) => {
+              if (res.data.modifiedCount) {
+                refetch();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: `${user?.displayName} marked as user`,
+                  showConfirmButton: false,
+                  timer: 2000,
+                });
+              }
+            });
+        }
+      })
+      .catch((err) => toast.error(err.message));
+  };
+  const handleMakeRider = (user) => {
+    const roleInfo = { role: "rider" };
+    Swal.fire({
+      title: "Are you sure?",
+
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, make rider",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`/users/${user?._id}/role`, roleInfo).then((res) => {
+          if (res.data.modifiedCount) {
+            refetch();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `${user?.displayName} marked as rider`,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
         });
       }
     });
   };
 
-  if (isPending || loading) {
+  if (loading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
   return (
     <div>
+      <form action="" className="flex items-center justify-start gap-1.5 mb-4">
+        <input
+          type="search"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          className="input w-50 h-8 rounded-2xl "
+          placeholder="Search user"
+        />
+      </form>
+      <hr className="text-gray-300 my-6" />
+
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -108,6 +180,7 @@ const UsersManagement = () => {
 
                     {/* Rider Button */}
                     <button
+                      onClick={() => handleMakeRider(user)}
                       className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${
                         user?.role === "rider"
                           ? "bg-blue-600 text-white"

@@ -31,7 +31,7 @@ const useAxiosSecure = () => {
         return response;
       },
       function (error) {
-        const statusCode = error.status;
+        const statusCode = error.response?.status;
         if (statusCode === 401 || statusCode === 403) {
           logOut().then(() => {
             toast.error("Unauthorized access");
@@ -44,7 +44,7 @@ const useAxiosSecure = () => {
 
     return () => {
       axiosSecure.interceptors.request.eject(reqInterceptor);
-      axiosSecure.interceptors.request.eject(resInterceptor);
+      axiosSecure.interceptors.response.eject(resInterceptor);
     };
   }, [user, logOut, navigate]);
   return axiosSecure;
