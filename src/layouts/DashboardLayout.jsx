@@ -8,6 +8,7 @@ import {
   MdOutlinePayment,
   MdDirectionsBike,
   MdOutlineDirectionsBike,
+  MdOutlinePendingActions,
 } from "react-icons/md";
 import useRole from "../hooks/useRole";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
@@ -150,8 +151,10 @@ const DashboardLayout = () => {
                       }`
                     }
                   >
-                    <RiEBikeLine size={18} />
-                    Assign riders
+                    <MdOutlinePendingActions
+                      size={18}
+                    ></MdOutlinePendingActions>
+                    Pending parcel
                   </NavLink>
                 </li>
                 {/* user management */}

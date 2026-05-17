@@ -119,7 +119,8 @@ const RiderRequest = () => {
               <th>Name</th>
               <th>Email</th>
               <th>District</th>
-              <th>Status</th>
+              <th>Application Status</th>
+              <th>Work Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -146,6 +147,19 @@ const RiderRequest = () => {
                     }`}
                   >
                     {rider.status}
+                  </span>
+                </td>
+                <td>
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                      rider.workStatus === "Approved"
+                        ? "bg-green-100 text-green-700"
+                        : rider.workStatus === "Rejected"
+                          ? "bg-red-100 text-red-600"
+                          : "bg-yellow-100 text-yellow-700"
+                    }`}
+                  >
+                    {rider.workStatus}
                   </span>
                 </td>
 
