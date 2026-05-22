@@ -3,6 +3,8 @@ import { Link, NavLink, Outlet } from "react-router";
 import Logo from "../components/Logo/Logo";
 import { TfiMenu } from "react-icons/tfi";
 import { FaTasks, FaHome, FaUsers } from "react-icons/fa";
+import { AiOutlineFileDone } from "react-icons/ai";
+
 import { RiEBikeLine } from "react-icons/ri";
 import {
   MdOutlinePayment,
@@ -119,7 +121,43 @@ const DashboardLayout = () => {
                 Payment History
               </NavLink>
             </li>
+            {/* rider only links */}
+            {role === "rider" && (
+              <>
+                <li>
+                  <NavLink
+                    to="/dashboard/assigned-deliveries"
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-4 py-2 rounded-lg transition ${
+                        isActive
+                          ? "bg-[#caeb66] text-black font-medium"
+                          : "text-gray-600 hover:bg-gray-100"
+                      }`
+                    }
+                  >
+                    <FaTasks size={18} />
+                    Assigned Deliveries
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/completed-deliveries"
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-4 py-2 rounded-lg transition ${
+                        isActive
+                          ? "bg-[#caeb66] text-black font-medium"
+                          : "text-gray-600 hover:bg-gray-100"
+                      }`
+                    }
+                  >
+                    <AiOutlineFileDone size={20} />
+                    Completed Deliveries
+                  </NavLink>
+                </li>
+              </>
+            )}
 
+            {/* admin only links */}
             {role === "admin" && (
               <>
                 {/* approve Rider request  */}
