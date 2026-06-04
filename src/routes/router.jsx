@@ -22,12 +22,16 @@ import AssignRiders from "../pages/Dashboard/AssignRiders/AssignRiders";
 import AssignedDeliveries from "../pages/Dashboard/AssignedDeliveries/AssignedDeliveries";
 import RiderRoute from "./RiderRoute";
 import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
+import ParcelTrack from "../pages/ParcelTrack/ParcelTrack";
+import ParcelTracking from "../pages/Home/ParcelTracking/ParcelTracking";
+import ErrorElement from "../pages/ErrorElement/ErrorElement";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout></RootLayout>,
     hydrateFallbackElement: <LoadingSpinner></LoadingSpinner>,
+    errorElement: <ErrorElement></ErrorElement>,
     children: [
       {
         index: true,
@@ -55,6 +59,14 @@ export const router = createBrowserRouter([
         path: "/coverage",
         Component: Coverage,
         loader: () => fetch("/services.json").then((res) => res.json()),
+      },
+      {
+        path: "parcel-track",
+        Component: ParcelTracking,
+      },
+      {
+        path: "parcel-track/:trackingId",
+        Component: ParcelTrack,
       },
     ],
   },

@@ -42,7 +42,7 @@ const CompletedDeliveries = () => {
               <th>Pickup District</th>
               <th>Cost</th>
               <th>Payout</th>
-              <th>Other</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
