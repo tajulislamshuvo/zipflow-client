@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../../../components/Logo/Logo";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import userImg from "/image.png";
+import { AnimatePresence, motion } from "framer-motion";
 import { IoLogOut } from "react-icons/io5";
 
 export default function Navbar() {
   const { user, logOut } = useAuth();
+  const [open, setOpen] = useState(false);
 
   const handleLogOut = () => {
     logOut()
@@ -28,18 +30,18 @@ export default function Navbar() {
       </li>
 
       <li>
+        <NavLink to="/send-parcel">Send Parcel</NavLink>
+      </li>
+      <li>
+        <NavLink to="/rider">Be a rider</NavLink>
+      </li>
+      <li>
         <NavLink to="/coverage">Coverage</NavLink>
       </li>
       {user && (
         <>
           <li>
-            <NavLink to="/dashboard/my-parcels">My parcel</NavLink>
-          </li>
-          <li>
-            <NavLink to="/send-parcel">Send Parcel</NavLink>
-          </li>
-          <li>
-            <NavLink to="/rider">Be a rider</NavLink>
+            <NavLink to="/dashboard">Dashboard</NavLink>
           </li>
         </>
       )}
@@ -94,30 +96,84 @@ export default function Navbar() {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end hidden lg:flex">
+      <div className="navbar-end ">
         {user ? (
-          <div className="dropdown dropdown-end z-50 ">
+          // <div className="dropdown dropdown-end z-50 ">
+          //   <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
+          //     <div className="w-10 border-2 border-blue-300 rounded-full">
+          //       <img src={user.photoURL || userImg} alt="user" />
+          //     </div>
+          //   </div>
+
+          //   <motion.ul
+          //     initial={{ opacity: 0, scale: 0.95, y: -10 }}
+          //     animate={{ opacity: 1, scale: 1, y: 0 }}
+          //     transition={{ duration: 1, ease: "easeOut" }}
+          //     className="menu menu-sm dropdown-content bg-[#0f1f3d] text-white rounded-box mt-3 w-52 p-2 shadow space-y-2"
+          //   >
+          //     <li className="font-bold">{user.displayName}</li>
+          //     <li className="text-xs">{user.email}</li>
+          //     <li className="mt-2 hover:bg-[#09327e88] transition hover: rounded-md">
+          //       <Link to="/dashboard">Dashboard</Link>
+          //     </li>
+          //     <li>
+          //       <button
+          //         onClick={handleLogOut}
+          //         className="btn btn-primary mt-2 text-black font-bold"
+          //       >
+          //         <IoLogOut /> Logout
+          //       </button>
+          //     </li>
+          //   </motion.ul>
+          // </div>
+
+          // <div className="relative">
+          //   <button
+          //     onClick={() => setOpen(!open)}
+          //     className="btn btn-ghost btn-circle avatar"
+          //   >
+          //     <div className="w-10 border-2 border-blue-300 rounded-full">
+          //       <img src={user.photoURL || userImg} alt="user" />
+          //     </div>
+          //   </button>
+
+          <div
+            onClick={() => setOpen(!open)}
+            className="dropdown dropdown-end z-50 "
+          >
             <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 border-2 border-blue-300 rounded-full">
                 <img src={user.photoURL || userImg} alt="user" />
               </div>
             </div>
 
-            <ul className="menu menu-sm dropdown-content bg-[#0f1f3d] text-white rounded-box mt-3 w-52 p-2 shadow space-y-2">
-              <li className="font-bold">{user.displayName}</li>
-              <li className="text-xs">{user.email}</li>
-              <li className="mt-2 hover:bg-[#09327e88] transition hover: rounded-md">
-                <Link to="/dashboard">Dashboard</Link>
-              </li>
-              <li>
-                <button
-                  onClick={handleLogOut}
-                  className="btn btn-primary mt-2 text-black font-bold"
+            <AnimatePresence>
+              {open && (
+                <motion.ul
+                  initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="menu menu-sm dropdown-content bg-[#0f1f3d] text-white rounded-box mt-3 w-52 p-2 shadow space-y-2"
                 >
-                  <IoLogOut /> Logout
-                </button>
-              </li>
-            </ul>
+                  <li className="font-bold">{user.displayName}</li>
+                  <li className="text-xs">{user.email}</li>
+
+                  <li className="mt-2 hover:bg-[#09327e88] rounded-md">
+                    <Link to="/dashboard">Dashboard</Link>
+                  </li>
+
+                  <li>
+                    <button
+                      onClick={handleLogOut}
+                      className="btn btn-primary mt-2 text-black font-bold"
+                    >
+                      <IoLogOut /> Logout
+                    </button>
+                  </li>
+                </motion.ul>
+              )}
+            </AnimatePresence>
           </div>
         ) : (
           <>

@@ -25,6 +25,8 @@ import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/Complete
 import ParcelTrack from "../pages/ParcelTrack/ParcelTrack";
 import ParcelTracking from "../pages/Home/ParcelTracking/ParcelTracking";
 import ErrorElement from "../pages/ErrorElement/ErrorElement";
+import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
+import Profile from "../pages/Dashboard/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -92,6 +94,14 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        index: true,
+        element: <DashboardHome></DashboardHome>,
+      },
+      {
+        path: "profile",
+        element: <Profile></Profile>,
+      },
       {
         path: "my-parcels",
         Component: MyParcels,

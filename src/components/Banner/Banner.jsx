@@ -73,9 +73,12 @@ const Banner = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                <button className="bg-[#CAEB66] px-6 py-3 rounded-full font-bold hover:bg-[#CAEB66]/80 transition">
+                <Link
+                  to="/parcel-track"
+                  className="bg-[#CAEB66] px-6 py-3 rounded-full font-bold hover:bg-[#CAEB66]/80 transition"
+                >
                   Track your parcel
-                </button>
+                </Link>
 
                 <Link
                   to="/rider"
@@ -109,9 +112,12 @@ const Banner = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                <button className="bg-[#CAEB66] px-6 py-3 rounded-full font-bold hover:bg-[#CAEB66]/80 transition">
+                <Link
+                  to="/parcel-track"
+                  className="bg-[#CAEB66] px-6 py-3 rounded-full font-bold hover:bg-[#CAEB66]/80 transition"
+                >
                   Track your parcel
-                </button>
+                </Link>
 
                 <Link
                   to="/rider"

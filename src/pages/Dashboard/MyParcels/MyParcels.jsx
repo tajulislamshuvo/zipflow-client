@@ -81,7 +81,6 @@ const MyParcels = () => {
   }
   return (
     <div>
-      All my parcels {parcels.length}
       <div>
         {/* Desktop Table */}
         <div className="hidden lg:block overflow-x-auto">

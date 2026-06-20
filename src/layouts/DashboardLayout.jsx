@@ -17,7 +17,7 @@ import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import useAuth from "../hooks/useAuth";
 const DashboardLayout = () => {
   const { role, isPending } = useRole();
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
   // console.log(role.role);
 
   if (isPending || loading) {
@@ -47,7 +47,6 @@ const DashboardLayout = () => {
           </div>
 
           {/* RIGHT */}
-          {user.displayName}
         </div>
 
         {/* PAGE */}
@@ -74,7 +73,8 @@ const DashboardLayout = () => {
             {/* HOME */}
             <li>
               <NavLink
-                to="/"
+                to="/dashboard"
+                end
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-4 py-2 rounded-lg transition ${
                     isActive
@@ -84,7 +84,7 @@ const DashboardLayout = () => {
                 }
               >
                 <FaHome size={18} />
-                Homepage
+                Overview
               </NavLink>
             </li>
 
