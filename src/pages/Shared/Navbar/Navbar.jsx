@@ -5,6 +5,7 @@ import useAuth from "../../../hooks/useAuth";
 import userImg from "/image.png";
 import { AnimatePresence, motion } from "framer-motion";
 import { IoLogOut } from "react-icons/io5";
+import MobileMenu from "../../../components/MobileMenu/MobileMenu";
 
 export default function Navbar() {
   const { user, logOut } = useAuth();
@@ -26,7 +27,10 @@ export default function Navbar() {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/about">About Us</NavLink>
+        <NavLink to="/about-us">About Us</NavLink>
+      </li>
+      <li>
+        <NavLink to="/pricing">Pricing</NavLink>
       </li>
 
       <li>
@@ -50,7 +54,7 @@ export default function Navbar() {
   return (
     <div className="navbar bg-base-100  shadow-sm p-3 sm:rounded-2xl">
       <div className="navbar-start">
-        <div className="dropdown">
+        {/* <div className="dropdown">
           <div
             tabIndex={0}
             role="button"
@@ -90,7 +94,8 @@ export default function Navbar() {
               Be a rider
             </Link>
           </ul>
-        </div>
+        </div> */}
+        <MobileMenu user={user} links={links} handleLogOut={handleLogOut} />
         <Logo></Logo>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -160,6 +165,9 @@ export default function Navbar() {
                   <li className="text-xs">{user.email}</li>
 
                   <li className="mt-2 hover:bg-[#09327e88] rounded-md">
+                    <Link to="/dashboard/profile">Profile</Link>
+                  </li>
+                  <li className="mt-2 hover:bg-[#09327e88] rounded-md">
                     <Link to="/dashboard">Dashboard</Link>
                   </li>
 
@@ -180,8 +188,8 @@ export default function Navbar() {
             <Link to="/login" className="btn">
               Login
             </Link>
-            <Link className="btn btn-primary text-black ml-1.5" to="/rider">
-              Be a rider
+            <Link className="btn btn-primary text-black ml-1.5" to="/register">
+              Register
             </Link>
           </>
         )}

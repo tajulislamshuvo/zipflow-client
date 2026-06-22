@@ -27,6 +27,8 @@ import ParcelTracking from "../pages/Home/ParcelTracking/ParcelTracking";
 import ErrorElement from "../pages/ErrorElement/ErrorElement";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import Profile from "../pages/Dashboard/Profile/Profile";
+import AboutUs from "../pages/AboutUs/AboutUs";
+import Pricing from "../pages/Pricing/Pricing";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +58,14 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: () => fetch("/services.json").then((res) => res.json()),
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs></AboutUs>,
+      },
+      {
+        path: "/pricing",
+        element: <Pricing></Pricing>,
       },
       {
         path: "/coverage",
