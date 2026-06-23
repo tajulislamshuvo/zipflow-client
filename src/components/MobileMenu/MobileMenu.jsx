@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router";
 import Logo from "../Logo/Logo";
 
-const MobileMenu = ({ user, links, handleLogOut }) => {
+const MobileMenu = ({ user, handleLogOut }) => {
   const [open, setOpen] = useState(false);
   const navLinks = [
     { path: "/", label: "Home" },

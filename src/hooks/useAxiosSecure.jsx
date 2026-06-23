@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://zip-flow-server.vercel.app",
 });
 const useAxiosSecure = () => {
   const { user, logOut } = useAuth();
