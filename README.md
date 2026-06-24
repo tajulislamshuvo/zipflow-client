@@ -2,8 +2,6 @@
 
 A modern parcel delivery management platform that connects customers, riders, and administrators in a single ecosystem. ZipFlow streamlines parcel booking, rider assignment, delivery tracking, and payment management through an intuitive and responsive web application.
 
-![ZipFlow Banner](https://via.placeholder.com/1200x400?text=ZipFlow)
-
 ## 🌐 Live Demo
 
 🔗 Live Site: https://zip-flow-a58d2.web.app/
